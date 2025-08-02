@@ -18,16 +18,24 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   int sensorVal = analogRead(FORCE_SENSOR);
-  int motorAngle = 0;
-
+  int incraments = 5;
+  myServo.write(0);
+  
   Serial.println(sensorVal);
 
-  while (sensorVal == 0)
+  for (int servoAngle = 0; sensorVal == HIGH; servoAngle += incraments)
   {
-    for (int motorAngle = 0; motorAngle <= 180; motorAngle += 5)
+    if (servoAngle >= 180)
     {
-      myServo.write(motorAngle);
+      incrament = 0;
+      myServo.write(servoAngle);
     }
+    else
+    {
+      myServo.write(servoAngle);
+    }
+    
   }
+
 
 }
