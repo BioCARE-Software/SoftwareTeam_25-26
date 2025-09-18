@@ -20,3 +20,11 @@ The software team looks to seamlessly integrate with both hardware, control syst
           - Device <-> App. (Bluetooth - BLE)
           - ESP32 <-> Arduino Nano (UART)
   - Designing and launching a suitable mobile application for further user customization, calibration, and feedback between the device (React Native)
+
+## Getting started! Here is a list of resources to help you get started with our team!
+### Firmware:
+ 1. Arduino IDE: [Arduino IDE Page - Install Latest Arduino IDE (Not Legacy)](https://www.arduino.cc/en/software/)
+ 2. ESP32 Add-On for Arduino IDE: [Instructions for ESP32 Add-On](https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/)
+
+### Software:
+ 1. React Native Tutorial: [Getting Started with React Native](https://www.youtube.com/watch?v=J2j1yk-34OY)
