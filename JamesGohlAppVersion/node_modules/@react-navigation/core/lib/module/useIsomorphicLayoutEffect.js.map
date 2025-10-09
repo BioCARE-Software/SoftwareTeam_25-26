@@ -1,0 +1,1 @@
+{"version":3,"names":["useEffect","useLayoutEffect","useIsomorphicLayoutEffect","document"],"sourceRoot":"../../src","sources":["useIsomorphicLayoutEffect.tsx"],"mappings":";;AAAA,SAASA,SAAS,EAAEC,eAAe,QAAQ,OAAO;;AAElD;AACA;AACA;AACA,OAAO,MAAMC,yBAAyB,GACpC,OAAOC,QAAQ,KAAK,WAAW,GAAGF,eAAe,GAAGD,SAAS","ignoreList":[]}

@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"name": "reactiveNativeTest",
+			"path": ".."
+		},
+		{
+			"name": "home_page",
+			"path": "home_page"
+		},
+		{
+			"name": "home_page",
+			"path": "../../.Trash/home_page"
+		},
+		{
+			"name": "Screens",
+			"path": "Screens"
+		}
+	],
+	"settings": {}
+}

@@ -1,0 +1,1 @@
+{"version":3,"names":["PERMISSIONS","exports","Object","freeze","ANDROID","IOS","WINDOWS"],"sourceRoot":"../../src","sources":["permissions.ts"],"mappings":";;;;;;AAIO,MAAMA,WAAW,GAAAC,OAAA,CAAAD,WAAA,GAAGE,MAAM,CAACC,MAAM,CAAC;EACvCC,OAAO,EAAE,CAAC,CAAyB;EACnCC,GAAG,EAAE,CAAC,CAAqB;EAC3BC,OAAO,EAAE,CAAC;AACZ,CAAU,CAAC","ignoreList":[]}
