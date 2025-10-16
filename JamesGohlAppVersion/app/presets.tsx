@@ -1,9 +1,59 @@
-import React from "react";
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
-import { Ionicons } from "@expo/vector-icons"; // For back arrow and menu dots
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+  Alert,
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function PresetsScreen() {
-  const presets = ["Utility", "Strength", "Sport", "Custom"];
+  const [presets, setPresets] = useState([]);
+
+  // Load presets on startup
+  useEffect(() => {
+    loadPresets();
+  }, []);
+
+  const loadPresets = async () => {
+    try {
+      const stored = await AsyncStorage.getItem("presets");
+      if (stored) setPresets(JSON.parse(stored));
+    } catch (error) {
+      console.error("Failed to load presets:", error);
+    }
+  };
+
+  const savePresets = async (newPresets) => {
+    try {
+      await AsyncStorage.setItem("presets", JSON.stringify(newPresets));
+    } catch (error) {
+      console.error("Failed to save presets:", error);
+    }
+  };
+
+  const handleNewPreset = () => {
+    Alert.prompt(
+      "New Preset",
+      "Enter a name for your new preset:",
+      (text) => {
+        if (text && text.trim() !== "") {
+          const newPresets = [...presets, text.trim()];
+          setPresets(newPresets);
+          savePresets(newPresets);
+        }
+      }
+    );
+  };
+
+  const handleDeletePreset = (index) => {
+    const newPresets = presets.filter((_, i) => i !== index);
+    setPresets(newPresets);
+    savePresets(newPresets);
+  };
 
   return (
     <View style={styles.container}>
@@ -17,18 +67,24 @@ export default function PresetsScreen() {
 
       {/* Preset List */}
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        {presets.map((preset, index) => (
-          <View key={index} style={styles.presetCard}>
-            <Text style={styles.presetText}>{preset}</Text>
-            <TouchableOpacity>
-              <Ionicons name="ellipsis-vertical" size={20} color="black" />
-            </TouchableOpacity>
-          </View>
-        ))}
+        {presets.length === 0 ? (
+          <Text style={{ color: "gray", textAlign: "center", marginTop: 50 }}>
+            No presets yet. Press “New Preset” to create one.
+          </Text>
+        ) : (
+          presets.map((preset, index) => (
+            <View key={index} style={styles.presetCard}>
+              <Text style={styles.presetText}>{preset}</Text>
+              <TouchableOpacity onPress={() => handleDeletePreset(index)}>
+                <Ionicons name="trash" size={20} color="black" />
+              </TouchableOpacity>
+            </View>
+          ))
+        )}
       </ScrollView>
 
       {/* New Preset Button */}
-      <TouchableOpacity style={styles.newPresetButton}>
+      <TouchableOpacity style={styles.newPresetButton} onPress={handleNewPreset}>
         <Text style={styles.newPresetText}>New Preset</Text>
       </TouchableOpacity>
     </View>
