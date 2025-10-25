@@ -25,6 +25,6 @@ The software team looks to seamlessly integrate with both hardware, control syst
 ### Firmware:
  1. Arduino IDE: [Arduino IDE Page - Install Latest Arduino IDE (Not Legacy)](https://www.arduino.cc/en/software/)
  2. ESP32 Add-On for Arduino IDE: [Instructions for ESP32 Add-On](https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/)
-
+ 3. PlatformIO IDE on VS Code: [How to Install and Run PlatformIO on VS Code](https://platformio.org/install/ide?install=vscode)
 ### Software:
  1. React Native Tutorial: [Getting Started with React Native](https://www.youtube.com/watch?v=J2j1yk-34OY)
