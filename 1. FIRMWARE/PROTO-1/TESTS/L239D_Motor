@@ -1,0 +1,63 @@
+#define VIBRATION_PIN_1 9
+#define VIBRATION_PIN_2 10
+#define FORCE_SENSOR A0
+
+int sensor = 0;
+//Motor A
+const int motorPin1  = 6;  // Pin 14 of L293
+const int motorPin2  = 7;  // Pin 10 of L293
+const int motorEnA = 5;
+//Motor B
+const int motorPin3  = 4; // Pin  7 of L293
+const int motorPin4  = 3;  // Pin  2 of L293
+const int motorEnB = 2;
+
+void setup()
+{
+  pinMode(VIBRATION_PIN_1, OUTPUT);
+  pinMode(VIBRATION_PIN_2, OUTPUT);
+  pinMode(FORCE_SENSOR, INPUT);
+  Serial.begin(9600);
+  
+  //Motor A Pin
+  pinMode(motorPin1, OUTPUT);
+  pinMode(motorPin2, OUTPUT);
+  pinMode(motorEnA, OUTPUT);
+  //Motor B Pin
+  pinMode(motorPin3, OUTPUT);
+  pinMode(motorPin4, OUTPUT);
+  pinMode(motorEnB, OUTPUT);
+}
+
+void loop()
+{
+  sensor = analogRead(FORCE_SENSOR);
+  analogWrite(motorEnA, sensor);
+  analogWrite(motorEnB, sensor);
+  if(sensor > 300) {
+    
+  	digitalWrite(VIBRATION_PIN_1, HIGH);
+  	digitalWrite(VIBRATION_PIN_2, LOW);
+    
+    digitalWrite(motorPin1, HIGH);
+    digitalWrite(motorPin2, LOW);
+    digitalWrite(motorPin4, HIGH);
+    digitalWrite(motorPin3, LOW);
+
+  } else {
+  	digitalWrite(VIBRATION_PIN_1, LOW);
+    digitalWrite(VIBRATION_PIN_2, HIGH);
+    
+    digitalWrite(motorPin1, LOW);
+    digitalWrite(motorPin2, HIGH);
+    digitalWrite(motorPin3, LOW);
+    digitalWrite(motorPin4, HIGH);
+
+
+  }
+  
+  Serial.print("sensor = ");
+  Serial.println(sensor);
+  delay(100);
+}
+
