@@ -1,0 +1,56 @@
+#include <Arduino.h>
+#include <BLEDevice.h>
+#include <BLEUtils.h>
+#include <BLEServer.h>
+#include <BLE2902.h>
+
+// UUIDs — you can keep or change these
+#define SERVICE_UUID "b36ffaec-2ef4-4f92-8240-05877b9d71e6"
+#define CHAR_UUID_SENSOR "b9d3b9d6-9fb5-4b2e-89c1-2fb2a2f6d111"
+
+BLECharacteristic* pSensorCharacteristic;
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(34, INPUT);  // ADC pin for your sensor
+
+  // Setup BLE
+  BLEDevice::init("BioCare_ProstheticESP32");
+  BLEServer* pServer = BLEDevice::createServer();
+  BLEService* pService = pServer->createService(SERVICE_UUID);
+
+  // Create a characteristic that can notify
+  pSensorCharacteristic = pService->createCharacteristic(
+    CHAR_UUID_SENSOR,
+    BLECharacteristic::PROPERTY_NOTIFY
+  );
+
+  // Allow client to enable notifications
+  pSensorCharacteristic->addDescriptor(new BLE2902());
+  pService->start();
+
+  // Advertise so your computer can find it
+  BLEAdvertising* pAdvertising = BLEDevice::getAdvertising();
+  pAdvertising->addServiceUUID(SERVICE_UUID);
+  BLEDevice::startAdvertising();
+
+  Serial.println("BLE Sensor is running and advertising...");
+}
+
+unsigned long lastTime = 0;
+
+void loop() {
+  unsigned long now = millis();
+  if (now - lastTime > 100) { // send every 0.1 sec
+    lastTime = now;
+
+    int16_t sensorValue = analogRead(34); // Read sensor (0–4095)
+    uint8_t data[2];
+    memcpy(data, &sensorValue, 2); // convert int16 → 2 bytes
+
+    pSensorCharacteristic->setValue(data, 2);
+    pSensorCharacteristic->notify(); // send to connected device
+
+    Serial.println(sensorValue); // optional: debug in Serial Monitor
+  }
+}
