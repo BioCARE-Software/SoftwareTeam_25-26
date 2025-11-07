@@ -1,5 +1,3 @@
-## Ensure you run pip install bleak for python BLE library
-
 import asyncio
 from bleak import BleakClient, BleakScanner
 
@@ -29,17 +27,14 @@ async def main():
         print("Connected to ESP32")
 
         while True:
-            cmd = input("Enter command (on/off/exit): ").strip().lower()
-            if cmd == "on":
-                await client.write_gatt_char(CHAR_UUID, b"LED_ON") # Transmission of input -- client.write_gatt_char(CHAR_UUID, xxxx): xxxx is user defined input
-                print("Sent: LED_ON")
-            elif cmd == "off":
-                await client.write_gatt_char(CHAR_UUID, b"LED_OFF") 
-                print("Sent: LED_OFF")
-            elif cmd == "exit":
-                break
+            cmd = input("Enter the servo position you would like: (0 -> 180) or print exit to disconnect: ")
+            if (cmd != 'exit'):
+                cmd = int(cmd)
+                data = cmd.to_bytes(4, byteorder = 'little', signed = True) # Converts cmd <int> input into byte for transfer
+                await client.write_gatt_char(CHAR_UUID, data)
+                print(f'Sent Servo Position {cmd}')
             else:
-                print("Unknown Command")
+                break
 
     print("Disconnected") 
 
