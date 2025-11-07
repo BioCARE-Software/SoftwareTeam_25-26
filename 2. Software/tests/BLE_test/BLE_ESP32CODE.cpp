@@ -2,37 +2,32 @@
 #include <BLEDevice.h>
 #include <BLEUtils.h>
 #include <BLEServer.h>
-
-#define LED 2 // Built - in LED
+#include <ESP32Servo.h>
 
 // BLE Identifiers
 #define SERVICE_UUID "b36ffaec-2ef4-4f92-8240-05877b9d71e6"
 #define CHAR_UUID "36e89808-bb82-471d-9791-a2dc10994675"
 
 
+
+// Servo Initialization
+Servo myServo;
+const int servoPin = 12;
+
 // BLE Callbacks Class - Manages retrieved data
 class MyCallbacks: public BLECharacteristicCallbacks {
-  void onWrite(BLECharacteristic *pCharacteristic) override
+  void onWrite(BLECharacteristic *pCharacteristic) override // onWrite : rx function for BLE communication
   {
     std::string rxValue = pCharacteristic->getValue(); // Gets string value from tx (python module)
 
-    if (rxValue.length() > 0)
-    {
-      Serial.print("Received Value: ");
-      Serial.println(rxValue.c_str());
+      if (rxValue.length() == 4) // ensuring 4-bytes for 32 bit int
+      {
+        int32_t servo_angle = *(int32_t*)rxValue.data(); // Re - interprets byte -> int
+        Serial.print("Servo position recieved: ");
+        Serial.println(servo_angle);
 
-      if (rxValue == "LED_ON")
-      {
-        digitalWrite(LED, HIGH);
-        Serial.print("LED turned ON");
+        myServo.write(servo_angle);
       }
-      else if (rxValue == "LED_OFF")
-      {
-        digitalWrite(LED, LOW);
-        digitalWrite(LED, LOW);
-        Serial.println("LED turned OFF");
-      }
-    }
 
   }
 
@@ -40,7 +35,7 @@ class MyCallbacks: public BLECharacteristicCallbacks {
 
 void setup() {
   Serial.begin(115200);
-  pinMode(LED, OUTPUT);
+  myServo.attach(servoPin);
 
   BLEDevice::init("BioCare_ProstheticESP32");
   BLEServer *pServer = BLEDevice::createServer(); // Initializes server
