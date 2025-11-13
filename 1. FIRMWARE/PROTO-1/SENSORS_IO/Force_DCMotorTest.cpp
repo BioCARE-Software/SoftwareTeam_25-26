@@ -1,6 +1,15 @@
 #include <Arduino.h>
 
 
+/*
+ESP32 Motor response test: 
+  ForceSensorA (HIGH) -> Finger Contracting
+  ForceSensorB (HIGH) -> Finger Retracting
+
+  Test with L293 Motor driver to DC Motor
+*/
+
+
 // Motor Pins
 const int motorPinA = 15;
 const int motorPinB = 4;
@@ -52,3 +61,4 @@ void loop() {
 
   
 }
+
