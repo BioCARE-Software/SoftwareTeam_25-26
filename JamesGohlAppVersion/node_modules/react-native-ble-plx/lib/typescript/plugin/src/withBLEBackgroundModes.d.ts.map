@@ -1,1 +1,0 @@
-{"version":3,"file":"withBLEBackgroundModes.d.ts","sourceRoot":"","sources":["../../../../plugin/src/withBLEBackgroundModes.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,YAAY,EAAiB,MAAM,sBAAsB,CAAA;AAEvE,oBAAY,cAAc;IACxB,OAAO,YAAY;IACnB,UAAU,eAAe;CAC1B;AAYD;;GAEG;AACH,eAAO,MAAM,sBAAsB,EAAE,YAAY,CAAC,cAAc,EAAE,CAmB9D,CAAA"}
