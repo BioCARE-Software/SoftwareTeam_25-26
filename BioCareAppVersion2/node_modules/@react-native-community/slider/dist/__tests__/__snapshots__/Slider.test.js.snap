@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Slider /> accessibilityState disabled sets disabled={true} 1`] = `null`;
+
+exports[`<Slider /> disabled prop overrides accessibilityState.disabled 1`] = `null`;
+
+exports[`<Slider /> disabled prop overrides accessibilityState.enabled 1`] = `null`;
+
+exports[`<Slider /> renders a slider with custom props 1`] = `null`;
+
+exports[`<Slider /> renders a slider with custom stepMaker 1`] = `null`;
+
+exports[`<Slider /> renders disabled slider 1`] = `null`;
+
+exports[`<Slider /> renders enabled slider 1`] = `null`;

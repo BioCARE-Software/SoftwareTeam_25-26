@@ -5,7 +5,11 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "biocareappversion2",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "userInterfaceStyle": "automatic",
     "splash": {
       "resizeMode": "contain",
@@ -22,7 +26,9 @@
         "backgroundColor": "#FFFFFF"
       }
     },
-    "web": {
-    }
+    "web": {},
+    "plugins": [
+      "expo-router"
+    ]
   }
 }

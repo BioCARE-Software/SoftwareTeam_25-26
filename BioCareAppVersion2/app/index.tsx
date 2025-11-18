@@ -1,13 +1,22 @@
 import { Link } from "expo-router";
 import * as React from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <StatusBar style="light" />
-      <Text style={styles.header}>BioCARE Home</Text>
+   <View style={{ flex:1, justifyContent:"center", alignItems:"center", backgroundColor: "#111" }}>
+      {"BIOCARE APP"}
+      <Image
+        source={require("./assets/biocare-logo.png")}
+        style={{ width: 170, height: 160, marginBottom: 24 }}
+        resizeMode="contain"
+        />
+
+      <Text style={{ color: "#ffff", fontSize: 47, fontWeight:     "bold" }}>
+        BioCare Home
+         </Text>
+
       <Link href="/presets" asChild>
         <TouchableOpacity style={styles.button}>
           <Text>PRESETS</Text>
@@ -33,7 +42,7 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#fff" },
+  container: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#fff8f8ff" },
   header: { fontSize: 32, fontWeight: "bold", marginBottom: 40 },
   button: { padding: 20, margin: 10, backgroundColor: "#E50000", borderRadius: 20 }
 });

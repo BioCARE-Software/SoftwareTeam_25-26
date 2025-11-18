@@ -11,13 +11,17 @@ export default function Presets() {
       </View>
 
       <ScrollView contentContainerStyle={styles.presetsList}>
-        <PresetButton label="Utility" />
+        {/* Utility is linked to /utility-gesture-set */}
+        <Link href="/utility-gesture-set" asChild>
+          <PresetButton label="Utility" />
+        </Link>
+        {/* The rest stay unlinked (EXACTLY as you had them) */}
         <PresetButton label="Strength" />
         <PresetButton label="Sport" />
         <PresetButton label="Custom" />
       </ScrollView>
 
-      {/* New Preset Button */}
+      {/* New Preset Button as you had */}
       <Link href="/create-gesture" asChild>
         <TouchableOpacity style={styles.newPresetBtn}>
           <Text style={styles.newPresetText}>New Preset</Text>

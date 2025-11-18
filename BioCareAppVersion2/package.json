@@ -10,9 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@react-native-community/slider": "5.0.1",
     "expo": "^54.0.25",
     "expo-linking": "~8.0.9",
-    "expo-router": "^6.0.15",
+    "expo-router": "~6.0.15",
     "expo-status-bar": "^3.0.8",
     "react": "19.1.0",
     "react-dom": "19.1.0",
