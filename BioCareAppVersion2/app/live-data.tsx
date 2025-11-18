@@ -1,124 +1,38 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { useRouter } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-export default function LiveDataScreen() {
-  const router = useRouter();
-  const [isLive, setIsLive] = useState(true);
-  const [dataType, setDataType] = useState<'EMG' | 'Force'>('EMG');
-
-  // Simulated data
-  const emgData = [45, 62, 58, 73, 68, 55, 49, 61];
-  const forceData = [120, 145, 138, 162, 155, 141, 128, 150];
-
+export default function LiveData() {
   return (
     <View style={styles.container}>
-      <StatusBar style="light" />
-      
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}>
-          <Text style={styles.backButton}>←</Text>
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>SENSOR DATA</Text>
-        <View style={styles.placeholder} />
+      {/* Back Arrow + Header */}
+      <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 10 }}>
+        <Text style={styles.backArrow}>←</Text>
+        <View>
+          <Text style={styles.liveText}>Live</Text>
+          <Text style={styles.sensorDataText}>SENSOR DATA</Text>
+        </View>
       </View>
 
-      <ScrollView style={styles.content}>
-        {/* Live Toggle */}
-        <View style={styles.toggleContainer}>
-          <TouchableOpacity
-            style={[styles.toggleButton, isLive && styles.toggleButtonActive]}
-            onPress={() => setIsLive(true)}
-          >
-            <Text style={[styles.toggleText, isLive && styles.toggleTextActive]}>
-              Live
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.toggleButton, !isLive && styles.toggleButtonActive]}
-            onPress={() => setIsLive(false)}
-          >
-            <Text style={[styles.toggleText, !isLive && styles.toggleTextActive]}>
-              Recorded
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Data Type Selector */}
-        <View style={styles.dataTypeContainer}>
-          <TouchableOpacity
-            style={[styles.dataTypeButton, dataType === 'EMG' && styles.dataTypeButtonActive]}
-            onPress={() => setDataType('EMG')}
-          >
-            <Text style={[styles.dataTypeText, dataType === 'EMG' && styles.dataTypeTextActive]}>
-              EMG
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.dataTypeButton, dataType === 'Force' && styles.dataTypeButtonActive]}
-            onPress={() => setDataType('Force')}
-          >
-            <Text style={[styles.dataTypeText, dataType === 'Force' && styles.dataTypeTextActive]}>
-              Force
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Graph Display */}
-        <View style={styles.graphContainer}>
-          <View style={styles.graph}>
-            <View style={styles.graphGrid}>
-              {[...Array(5)].map((_, i) => (
-                <View key={i} style={styles.gridLine} />
-              ))}
-            </View>
-            
-            {/* Simple bar chart */}
-            <View style={styles.barsContainer}>
-              {(dataType === 'EMG' ? emgData : forceData).map((value, index) => (
-                <View key={index} style={styles.barWrapper}>
-                  <View
-                    style={[
-                      styles.bar,
-                      {
-                        height: `${(value / (dataType === 'EMG' ? 100 : 200)) * 100}%`,
-                      },
-                    ]}
-                  />
-                </View>
-              ))}
-            </View>
-          </View>
-
-          {/* Graph Info */}
-          <View style={styles.graphInfo}>
-            <Text style={styles.graphLabel}>
-              {dataType === 'EMG' ? 'Voltage (mV)' : 'Force (N)'}
-            </Text>
-            <View style={styles.statsRow}>
-              <View style={styles.statItem}>
-                <Text style={styles.statLabel}>Current</Text>
-                <Text style={styles.statValue}>
-                  {dataType === 'EMG' ? '61' : '150'} {dataType === 'EMG' ? 'mV' : 'N'}
-                </Text>
-              </View>
-              <View style={styles.statItem}>
-                <Text style={styles.statLabel}>Peak</Text>
-                <Text style={styles.statValue}>
-                  {dataType === 'EMG' ? '73' : '162'} {dataType === 'EMG' ? 'mV' : 'N'}
-                </Text>
-              </View>
-            </View>
+      {/* Graph Card */}
+      <View style={styles.graphCard}>
+        <View style={styles.legend}>
+          <View style={styles.legendRow}>
+            <View style={[styles.legendDot, { backgroundColor: "#3fa7df" }]} />
+            <Text style={styles.legendLabel}>EMG</Text>
+            <View style={[styles.legendDot, { backgroundColor: "#d33c32", marginLeft: 18 }]} />
+            <Text style={styles.legendLabel}>Force</Text>
           </View>
         </View>
+        {/* Fake graphified lines - replace with a chart library later */}
+        <View style={styles.graphLines}>
+          <View style={[styles.line, { borderColor: "#3fa7df", height: 62 }]} />
+          <View style={[styles.line, { borderColor: "#d33c32", height: 40, top: 35 }]} />
+        </View>
+      </View>
 
-        {/* Export Button */}
-        <TouchableOpacity style={styles.exportButton}>
-          <Text style={styles.exportButtonText}>EXPORT DATA</Text>
-        </TouchableOpacity>
-      </ScrollView>
+      {/* Export Data Button */}
+      <TouchableOpacity style={styles.exportBtn}>
+        <Text style={styles.exportText}>EXPORT DATA</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -126,161 +40,90 @@ export default function LiveDataScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000000',
+    backgroundColor: "#111",
+    paddingHorizontal: 16,
+    paddingTop: 42,
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 60,
-    paddingBottom: 20,
+  backArrow: {
+    color: "#fff",
+    fontSize: 32,
+    fontWeight: "bold",
+    marginRight: 14,
+    marginTop: 8,
   },
-  backButton: {
-    color: '#FFFFFF',
-    fontSize: 36,
-    fontWeight: '300',
+  liveText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 26,
+    marginBottom: -5,
   },
-  headerTitle: {
-    color: '#FFFFFF',
-    fontSize: 20,
-    fontWeight: '700',
-    letterSpacing: 2,
+  sensorDataText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 38,
   },
-  placeholder: {
-    width: 36,
+  graphCard: {
+    backgroundColor: "#fff",
+    borderRadius: 34,
+    marginTop: 32,
+    marginBottom: 24,
+    alignSelf: "center",
+    width: "93%",
+    height: 310,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    paddingTop: 24,
   },
-  content: {
-    flex: 1,
-    paddingHorizontal: 30,
+  legend: {
+    position: "absolute",
+    top: 18,
+    right: 30,
   },
-  toggleContainer: {
-    flexDirection: 'row',
-    backgroundColor: '#1A1A1A',
-    borderRadius: 25,
-    padding: 5,
-    marginBottom: 25,
+  legendRow: {
+    flexDirection: "row",
+    alignItems: "center",
   },
-  toggleButton: {
-    flex: 1,
-    paddingVertical: 12,
-    borderRadius: 20,
-    alignItems: 'center',
+  legendDot: {
+    width: 15,
+    height: 15,
+    borderRadius: 8,
+    marginRight: 6,
   },
-  toggleButtonActive: {
-    backgroundColor: '#E50000',
-  },
-  toggleText: {
-    color: '#666666',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  toggleTextActive: {
-    color: '#FFFFFF',
-  },
-  dataTypeContainer: {
-    flexDirection: 'row',
-    gap: 15,
-    marginBottom: 25,
-  },
-  dataTypeButton: {
-    flex: 1,
-    backgroundColor: '#1A1A1A',
-    paddingVertical: 15,
-    borderRadius: 12,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#333333',
-  },
-  dataTypeButtonActive: {
-    backgroundColor: '#E50000',
-    borderColor: '#E50000',
-  },
-  dataTypeText: {
-    color: '#AAAAAA',
+  legendLabel: {
+    fontWeight: "bold",
     fontSize: 18,
-    fontWeight: '600',
+    marginRight: 8,
+    color: "#222",
   },
-  dataTypeTextActive: {
-    color: '#FFFFFF',
-    fontWeight: '700',
-  },
-  graphContainer: {
-    backgroundColor: '#1A1A1A',
-    borderRadius: 20,
-    padding: 25,
-    marginBottom: 25,
-  },
-  graph: {
-    height: 250,
-    position: 'relative',
-    marginBottom: 20,
-  },
-  graphGrid: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    justifyContent: 'space-between',
-  },
-  gridLine: {
-    height: 1,
-    backgroundColor: '#2A2A2A',
-  },
-  barsContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    height: '100%',
-    gap: 8,
-    paddingHorizontal: 5,
-  },
-  barWrapper: {
+  graphLines: {
     flex: 1,
-    height: '100%',
-    justifyContent: 'flex-end',
+    width: "90%",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+    top: 70,
   },
-  bar: {
-    backgroundColor: '#E50000',
-    borderRadius: 4,
-    minHeight: 5,
+  line: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    borderWidth: 6,
+    borderRadius: 6,
+    top: 0,
   },
-  graphInfo: {
-    marginTop: 10,
+  exportBtn: {
+    backgroundColor: "#d33c32",
+    borderRadius: 28,
+    padding: 18,
+    alignItems: "center",
+    justifyContent: "center",
+    marginVertical: 8,
+    width: "90%",
+    alignSelf: "center",
   },
-  graphLabel: {
-    color: '#AAAAAA',
-    fontSize: 14,
-    fontWeight: '600',
-    marginBottom: 15,
-  },
-  statsRow: {
-    flexDirection: 'row',
-    gap: 30,
-  },
-  statItem: {
-    flex: 1,
-  },
-  statLabel: {
-    color: '#666666',
-    fontSize: 12,
-    fontWeight: '600',
-    marginBottom: 5,
-  },
-  statValue: {
-    color: '#FFFFFF',
-    fontSize: 20,
-    fontWeight: '700',
-  },
-  exportButton: {
-    backgroundColor: '#E50000',
-    paddingVertical: 18,
-    borderRadius: 25,
-    alignItems: 'center',
-    marginBottom: 30,
-  },
-  exportButtonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: '700',
-    letterSpacing: 1,
+  exportText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 26,
   },
 });

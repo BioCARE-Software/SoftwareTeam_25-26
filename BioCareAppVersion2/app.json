@@ -1,5 +1,28 @@
 {
   "expo": {
-    "scheme": "app"
+    "name": "BioCareAppVersion2",
+    "slug": "biocareappversion2",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "biocareappversion2",
+    "platforms": ["ios", "android", "web"],
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+    }
   }
 }
