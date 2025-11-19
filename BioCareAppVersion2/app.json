@@ -5,6 +5,9 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "biocareappversion2",
+    "plugins": [
+      "expo-router"
+    ],
     "platforms": [
       "ios",
       "android",
@@ -25,10 +28,6 @@
       "adaptiveIcon": {
         "backgroundColor": "#FFFFFF"
       }
-    },
-    "web": {},
-    "plugins": [
-      "expo-router"
-    ]
   }
+}
 }

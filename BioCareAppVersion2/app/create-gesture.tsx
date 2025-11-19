@@ -1,7 +1,5 @@
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 import { Link } from "expo-router";
-import { ExpoRoot } from 'expo-router';
-
 
 export default function UtilityGestureSet() {
   return (

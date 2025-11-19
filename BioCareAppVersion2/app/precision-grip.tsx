@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Slider } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { Link } from "expo-router";
+import Slider from "@react-native-community/slider";
 
+//BLE
+//send as byte 
+//decode byte for angles
 export default function PrecisionGripGesture() {
   const [finger1, setFinger1] = useState(50);
   const [finger2, setFinger2] = useState(50);
@@ -62,8 +66,9 @@ function SliderRow({ label, val, setVal }: { label: string; val: number; setVal:
         maximumTrackTintColor="#444"
         thumbTintColor="#d33c32"
         style={styles.slider}
-      />
+        />
     </View>
+   
   );
 }
 

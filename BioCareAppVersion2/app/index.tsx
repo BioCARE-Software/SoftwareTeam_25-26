@@ -9,7 +9,7 @@ export default function HomeScreen() {
       {"BIOCARE APP"}
       <Image
         source={require("./assets/biocare-logo.png")}
-        style={{ width: 170, height: 160, marginBottom: 24 }}
+        style={{ width: 160, height: 160, marginBottom: 24 }}
         resizeMode="contain"
         />
 

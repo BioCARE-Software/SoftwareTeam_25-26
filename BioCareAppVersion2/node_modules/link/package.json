@@ -1,0 +1,21 @@
+{
+  "name": "link",
+  "version": "2.1.1",
+  "description": "A better npm link",
+  "keywords": [
+    "npm",
+    "link",
+    "symlink"
+  ],
+  "license": "MIT",
+  "repository": "privatenumber/link",
+  "funding": "https://github.com/privatenumber/link?sponsor=1",
+  "author": {
+    "name": "Hiroki Osame",
+    "email": "hiroki.osame@gmail.com"
+  },
+  "files": [
+    "dist"
+  ],
+  "bin": "dist/cli.js"
+}

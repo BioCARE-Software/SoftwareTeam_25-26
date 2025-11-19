@@ -1,5 +1,8 @@
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
-import { Link } from "expo-router";
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Touchable } from "react-native";
+import { Stack, Tabs, Link } from 'expo-router';
+//import { Link } from "react-router-dom";
+
+
 
 export default function Presets() {
   return (
@@ -9,12 +12,16 @@ export default function Presets() {
         <Text style={styles.backArrow}>←</Text>
         <Text style={styles.title}>PRESETS</Text>
       </View>
-
       <ScrollView contentContainerStyle={styles.presetsList}>
-        {/* Utility is linked to /utility-gesture-set */}
-        <Link href="/utility-gesture-set" asChild>
-          <PresetButton label="Utility" />
+
+       {/* New Preset Button as you had */}
+        <Link href="/precision-grip" asChild>
+          <TouchableOpacity style={styles.newPrecisionGripBtn}>
+            <Text style={styles.newPresetText}>Utility</Text>
+          </TouchableOpacity>
         </Link>
+    
+    
         {/* The rest stay unlinked (EXACTLY as you had them) */}
         <PresetButton label="Strength" />
         <PresetButton label="Sport" />
@@ -28,6 +35,8 @@ export default function Presets() {
         </TouchableOpacity>
       </Link>
     </View>
+
+
   );
 }
 
@@ -94,8 +103,17 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   newPresetText: {
-    color: "#fff",
+    color: "#000000ff",
     fontWeight: "bold",
     fontSize: 26,
+  },
+  newPrecisionGripBtn: {
+    backgroundColor: "#ffffffff",
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 26,
+    padding: 18,
+    justifyContent: "space-between",
+    marginBottom: 0,
   },
 });
