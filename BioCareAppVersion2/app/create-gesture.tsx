@@ -1,5 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 import { Link } from "expo-router";
+/*for some reason link will NOT work as an import, if someone can fix that that would be really */
+/*another thing to note, if you want to import slider you must use this: import Slider from "@react-native-community/slider"; */
 
 export default function UtilityGestureSet() {
   return (
