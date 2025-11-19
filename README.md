@@ -7,11 +7,19 @@ The software team looks to seamlessly integrate with both hardware, control syst
 ## Meet the Team 👨‍💻👩‍💻
   - Software Team Lead: Jacob Reyes
   - Software Development:
-      - TBD
+      - Charis
+      - Pardis
+      - Cherie
+      - Hassan
+      - Afi Hassan
+      - 
   - Firmware Development:
-      - TBD
+      - Jacob Reyes
+      - Moaz Sholook
+      - Sahand Maaroof
   - Machine Learning Research and Implementation:
-      - TBD
+      - Kevin Abeykoon
+      - Efe Atacan
 
 ## As a team, we are responsible for:
   - Processing sensor inputs (EMG signals, force sensors, etc)
