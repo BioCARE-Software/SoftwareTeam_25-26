@@ -20,7 +20,7 @@ export default function PrecisionGripGesture() {
         </View>
       </View>
 
-      {/* Sliders Card */}
+      {"HAND SLIDERS"}
       <View style={styles.sliderCard}>
         <SliderRow label="Finger 1" val={finger1} setVal={setFinger1} />
         <SliderRow label="Finger 2" val={finger2} setVal={setFinger2} />
