@@ -7,16 +7,19 @@ The software team looks to seamlessly integrate with both hardware, control syst
 ## Meet the Team 👨‍💻👩‍💻
   - Software Team Lead: Jacob Reyes
   - Software Development:
-      - Charis
-      - Pardis
-      - Cherie
-      - Hassan
+      - Charis Nobossi
+      - Pardis Ehsani
+      - Cherie Mbaye
+      - Hassan 
       - Afi Hassan
-      - 
+      - Thana Hassan
+        
   - Firmware Development:
       - Jacob Reyes
       - Moaz Sholook
       - Sahand Maaroof
+      - Jorge Rangel de la Tejera
+        
   - Machine Learning Research and Implementation:
       - Kevin Abeykoon
       - Efe Atacan
