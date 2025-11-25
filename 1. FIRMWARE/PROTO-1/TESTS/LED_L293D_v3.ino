@@ -1,6 +1,3 @@
-// ===== BioCARE EMG + Motor + LED Bar =====
-// Sends EMG to Python in format: "<millis>,<raw>\n"
-
 #define VIBRATION_PIN_1 9
 #define VIBRATION_PIN_2 10
 #define EMG_SENSOR A0
@@ -42,22 +39,17 @@ void setup() {
   pinMode(motorBPin2, OUTPUT);
   pinMode(motorBEn, OUTPUT);
 
-  Serial.begin(115200);   // IMPORTANT: Python requires 115200
+  Serial.begin(9600);  
 }
 
 void loop() {
-
-  // ====== 1) READ EMG ======
   sensor = analogRead(EMG_SENSOR);
 
-  // ====== 2) SEND EMG TO PYTHON ======
-  // Python expects:  "<millis>,<raw>"
   unsigned long ms = millis();
   Serial.print(ms);
   Serial.print(',');
   Serial.println(sensor);
 
-  // ====== 3) LED BAR PROCESSING ======
   byte leds = 0;
 
   for (int i = 0; i < numLEDs; i++) {
@@ -76,7 +68,6 @@ void loop() {
   shiftOut(dataPin, clockPin, MSBFIRST, leds);
   digitalWrite(latchPin, HIGH);
 
-  // ====== 4) MOTOR DIRECTION CONTROL ======
   if (sensor > TH_high) {
     state = true;
   } else if (sensor < TH_low) {
@@ -101,5 +92,5 @@ void loop() {
     analogWrite(motorBEn, 255);
   }
 
-  delay(1);  // small delay for stability
+  delay(1);  
 }
