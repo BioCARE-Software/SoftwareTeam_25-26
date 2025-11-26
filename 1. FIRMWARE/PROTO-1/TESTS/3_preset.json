@@ -1,0 +1,40 @@
+{
+  "presets": [
+    {
+      "preset_id": "preset_01",
+      "gesture": "GRIP_STRONG",
+      "condition": "Fa>Fb",
+      "fingers": {
+        "finger1": 1,
+        "finger2": 1,
+        "finger3": 1,
+        "finger4": 1,
+        "finger5": 1
+      }
+    },
+    {
+      "preset_id": "preset_02",
+      "gesture": "GRIP_WEAK",
+      "condition": "Fa<Fb",
+      "fingers": {
+        "finger1": 1,
+        "finger2": 1,
+        "finger3": 0,
+        "finger4": 0,
+        "finger5": 0
+      }
+    },
+    {
+      "preset_id": "preset_03",
+      "gesture": "NEUTRAL",
+      "condition": "Fa=Fb",
+      "fingers": {
+        "finger1": 0,
+        "finger2": 0,
+        "finger3": 0,
+        "finger4": 0,
+        "finger5": 0
+      }
+    }
+  ]
+}
