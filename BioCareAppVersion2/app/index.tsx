@@ -22,6 +22,7 @@ export default function HomeScreen() {
           <Text>PRESETS</Text>
         </TouchableOpacity>
       </Link>
+
       <Link href="/create-gesture" asChild>
         <TouchableOpacity style={styles.button}>
           <Text>CREATE GESTURE</Text>
@@ -32,6 +33,7 @@ export default function HomeScreen() {
           <Text>LIVE DATA</Text>
         </TouchableOpacity>
       </Link>
+      
       <Link href="/settings" asChild>
         <TouchableOpacity style={styles.button}>
           <Text>SETTINGS</Text>

@@ -17,7 +17,7 @@ export default function PrecisionGripGesture() {
     <View style={styles.container}>
       {/* Header */}
       <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 10 }}>
-        <Text style={styles.backArrow}>←</Text>
+        <Text style={styles.backArrow}></Text>
         <View>
           <Text style={styles.newText}>New</Text>
           <Text style={styles.gestureText}>GESTURE</Text>

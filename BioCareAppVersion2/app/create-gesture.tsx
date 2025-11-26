@@ -1,105 +1,48 @@
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
+// app/create-gesture.tsx
 import { Link } from "expo-router";
-/*for some reason link will NOT work as an import, if someone can fix that that would be really */
-/*another thing to note, if you want to import slider you must use this: import Slider from "@react-native-community/slider"; */
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 export default function UtilityGestureSet() {
   return (
     <View style={styles.container}>
-      {/* Back Arrow */}
       <View style={styles.header}>
-        <Text style={styles.backArrow}>←</Text>
-        <Text style={styles.title}>UTILITY</Text>
+        <Link href=".." asChild>
+          <TouchableOpacity>
+            <Text style={styles.backArrow}>←</Text>
+          </TouchableOpacity>
+        </Link>
+        <Text style={styles.title}>UTILITY Gesture Set</Text>
       </View>
 
-      <Text style={styles.setTitle}>Gesture Set:</Text>
-      <ScrollView contentContainerStyle={styles.gestureList}>
-        <GestureItem label="Precision Grip" />
-        <GestureItem label="Point Gesture" />
-        <GestureItem label="Lateral Grip" />
-        <GestureItem label="OK Gesture" />
-      </ScrollView>
+      <Link href="/precision-grip" asChild>
+        <TouchableOpacity style={styles.gestureItem}>
+          <Text style={styles.gestureLabel}>Precision Grip</Text>
+          <Text style={styles.gestureArrow}>›</Text>
+        </TouchableOpacity>
+      </Link>
 
-      {/* Edit Set Button */}
+      <Link href="/power-grip" asChild>
+        <TouchableOpacity style={styles.gestureItem}>
+          <Text style={styles.gestureLabel}>Power Grip</Text>
+          <Text style={styles.gestureArrow}>›</Text>
+        </TouchableOpacity>
+      </Link>
+
       <TouchableOpacity style={styles.editSetBtn}>
-        <Text style={styles.editSetText}>✏️ EDIT SET</Text>
+        <Text style={styles.editSetText}>EDIT SET</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
-function GestureItem({ label }: { label: string }) {
-  return (
-    <TouchableOpacity style={styles.gestureItem}>
-      <Text style={styles.gestureLabel}>{label}</Text>
-      <Text style={styles.gestureArrow}>›</Text>
-    </TouchableOpacity>
-  );
-}
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#111",
-    paddingHorizontal: 22,
-    paddingTop: 48,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 22,
-  },
-  backArrow: {
-    color: "#fff",
-    fontSize: 32,
-    marginRight: 10,
-    fontWeight: "bold",
-  },
-  title: {
-    color: "#fff",
-    fontSize: 34,
-    fontWeight: "bold",
-  },
-  setTitle: {
-    color: "#fff",
-    fontSize: 26,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  gestureList: {
-    gap: 10,
-    marginBottom: 34,
-  },
-  gestureItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderBottomColor: "#555",
-    borderBottomWidth: 3,
-    paddingVertical: 11,
-    justifyContent: "space-between",
-  },
-  gestureLabel: {
-    fontSize: 28,
-    fontWeight: "400",
-    color: "#fff",
-  },
-  gestureArrow: {
-    fontSize: 34,
-    color: "#fff",
-    fontWeight: "bold",
-    marginLeft: 8,
-  },
-  editSetBtn: {
-    backgroundColor: "#d33c32",
-    borderRadius: 26,
-    padding: 18,
-    alignItems: "center",
-    justifyContent: "center",
-    marginVertical: 25,
-  },
-  editSetText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 26,
-  },
+  container: { flex: 1, backgroundColor: "#111", paddingHorizontal: 22, paddingTop: 48 },
+  header: { flexDirection: "row", alignItems: "center", marginBottom: 30 },
+  backArrow: { color: "#fff", fontSize: 38, marginRight: 12 },
+  title: { color: "#fff", fontSize: 34, fontWeight: "bold" },
+  gestureItem: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingVertical: 18, borderBottomWidth: 2, borderBottomColor: "#444" },
+  gestureLabel: { color: "#fff", fontSize: 28, fontWeight: "500" },
+  gestureArrow: { color: "#fff", fontSize: 36 },
+  editSetBtn: { backgroundColor: "#d33c32", borderRadius: 30, padding: 20, alignItems: "center", marginTop: 40 },
+  editSetText: { color: "#fff", fontWeight: "bold", fontSize: 26 },
 });

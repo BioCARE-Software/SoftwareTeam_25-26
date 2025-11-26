@@ -6,7 +6,8 @@
     "orientation": "portrait",
     "scheme": "biocareappversion2",
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "react-native-ble-plx"
     ],
     "platforms": [
       "ios",
@@ -22,12 +23,28 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "biocare",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#FFFFFF"
+      },
+      "permissions": [
+        "android.permission.BLUETOOTH",
+        "android.permission.BLUETOOTH_ADMIN",
+        "android.permission.BLUETOOTH_CONNECT"
+      ],
+      "package": "com.anonymous.biocareappversion2"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "187f03f7-8a2d-4ad3-b908-eac2c4bdae3d"
       }
+    }
   }
-}
 }

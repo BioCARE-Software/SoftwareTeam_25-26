@@ -1,83 +1,63 @@
+// app/settings.tsx
 import { useState } from "react";
-import { View, Text, TouchableOpacity, Switch, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { manager, connectedDevice } from "./bleManager";  // ← SAME FOLDER
 
 export default function Settings() {
-  const [enabled, setEnabled] = useState(false);
+  const [scanning, setScanning] = useState(false);
+
+  const connect = () => {
+    if (scanning) return;
+    setScanning(true);
+    Alert.alert("Scanning...", "Looking for BioCare_ProstheticESP32");
+
+    manager.startDeviceScan(null, null, (error, device) => {
+      if (error) {
+        Alert.alert("Error", error.message);
+        setScanning(false);
+        return;
+      }
+
+      if (device?.name?.includes("BioCare")) {
+        manager.stopDeviceScan();
+        device.connect()
+          .then((d) => d.discoverAllServicesAndCharacteristics())
+          .then((d) => {
+            (global as any).connectedDevice = d;
+            setScanning(false);
+            Alert.alert("SUCCESS", "Connected to ESP32!");
+            console.log("Connected:", d.id);
+          })
+          .catch(() => {
+            setScanning(false);
+            Alert.alert("Failed", "Connection failed");
+          });
+      }
+    });
+
+    setTimeout(() => {
+      manager.stopDeviceScan();
+      setScanning(false);
+    }, 12000);
+  };
 
   return (
     <View style={styles.container}>
-      {/* Back Arrow + Header */}
-      <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 18 }}>
-        <Text style={styles.backArrow}>←</Text>
-        <Text style={styles.title}>SETTINGS</Text>
-      </View>
-
-      {/* Enable Connect Switch */}
-      <View style={styles.itemBox}>
-        <Text style={styles.itemLabel}>Enable Connect</Text>
-        <Switch
-          value={enabled}
-          onValueChange={setEnabled}
-          trackColor={{ false: "#333", true: "#d33c32" }}
-          thumbColor={enabled ? "#fff" : "#fff"}
-        />
-      </View>
-
-      {/* Find Device Button */}
-      <TouchableOpacity style={styles.itemBoxDark}>
-        <Text style={styles.itemLabel}>Find Device</Text>
-        <Text style={styles.itemArrow}>›</Text>
+      <Text style={styles.title}>SETTINGS</Text>
+      <TouchableOpacity onPress={connect} style={styles.btn} disabled={scanning}>
+        <Text style={styles.btnText}>
+          {scanning ? "Scanning..." : connectedDevice ? "CONNECTED" : "Connect ESP32"}
+        </Text>
       </TouchableOpacity>
+      {connectedDevice && <Text style={styles.success}>ESP32 CONNECTED!</Text>}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#111",
-    paddingHorizontal: 16,
-    paddingTop: 48,
-  },
-  backArrow: {
-    color: "#fff",
-    fontSize: 32,
-    fontWeight: "bold",
-    marginRight: 10,
-  },
-  title: {
-    color: "#fff",
-    fontSize: 36,
-    fontWeight: "bold",
-  },
-  itemBox: {
-    backgroundColor: "#222",
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: 26,
-    padding: 18,
-    justifyContent: "space-between",
-    marginVertical: 22,
-  },
-  itemBoxDark: {
-    backgroundColor: "#222",
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: 26,
-    padding: 18,
-    justifyContent: "space-between",
-    marginBottom: 0,
-    marginVertical: 8,
-  },
-  itemLabel: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#fff",
-  },
-  itemArrow: {
-    fontSize: 32,
-    color: "#fff",
-    marginLeft: 8,
-    fontWeight: "bold",
-  },
+  container: { flex: 1, backgroundColor: "#111", justifyContent: "center", alignItems: "center" },
+  title: { color: "#fff", fontSize: 48, fontWeight: "bold", marginBottom: 80 },
+  btn: { backgroundColor: "#d33c32", padding: 28, borderRadius: 40, paddingHorizontal: 100 },
+  btnText: { color: "#fff", fontSize: 28, fontWeight: "bold" },
+  success: { color: "lime", fontSize: 36, marginTop: 50, fontWeight: "bold" },
 });

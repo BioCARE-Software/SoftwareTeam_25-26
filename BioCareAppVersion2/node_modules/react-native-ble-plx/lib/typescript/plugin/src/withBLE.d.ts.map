@@ -1,0 +1,1 @@
+{"version":3,"file":"withBLE.d.ts","sourceRoot":"","sources":["../../../../plugin/src/withBLE.ts"],"names":[],"mappings":"AAAA,OAAO,EAAiB,KAAK,YAAY,EAA0C,MAAM,sBAAsB,CAAA;AAG/G,OAAO,EAAE,cAAc,EAA0B,MAAM,0BAA0B,CAAA;AA6CjF,OAAO,EAAE,cAAc,EAAE,CAAA;;0BAnCC,OAAO;uBACV,OAAO;YAClB,cAAc,EAAE;gCACI,MAAM,GAAG,KAAK;;AAkC9C,wBAAkE"}
