@@ -39,3 +39,7 @@ The software team looks to seamlessly integrate with both hardware, control syst
  3. PlatformIO IDE on VS Code: [How to Install and Run PlatformIO on VS Code](https://platformio.org/install/ide?install=vscode)
 ### Software:
  1. React Native Tutorial: [Getting Started with React Native](https://www.youtube.com/watch?v=J2j1yk-34OY)
+
+### Machine Learning:
+ 1. Hands - On Machine Learning with Sci-kit, Keras, & TensorFlow: https://drive.google.com/drive/folders/1ue1M6OXICcxW9pum1I0YAAZVmVthPhZB 
+
