@@ -1,7 +1,9 @@
 // app/settings.tsx
 import { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
-import { manager, connectedDevice } from "./bleManager";  // ← SAME FOLDER
+import { manager } from "./bleManager";  // ← SAME FOLDER
+
+export let connectedDevice: any = null;
 
 export default function Settings() {
   const [scanning, setScanning] = useState(false);
