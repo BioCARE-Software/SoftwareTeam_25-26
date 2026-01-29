@@ -1,3 +1,4 @@
+//HOME PAGE OF BIOCARE APP  
 import { Link } from "expo-router";
 import * as React from "react";
 import { StatusBar } from "expo-status-bar";
@@ -28,6 +29,7 @@ export default function HomeScreen() {
           <Text>CREATE GESTURE</Text>
         </TouchableOpacity>
       </Link>
+      
       <Link href="/live-data" asChild>
         <TouchableOpacity style={styles.button}>
           <Text>LIVE DATA</Text>
@@ -39,6 +41,7 @@ export default function HomeScreen() {
           <Text>SETTINGS</Text>
         </TouchableOpacity>
       </Link>
+      
     </View>
   );
 }

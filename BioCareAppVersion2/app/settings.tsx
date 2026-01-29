@@ -1,16 +1,17 @@
 // app/settings.tsx
 import { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
-//import { manager } from "./bleManager";  // ← SAME FOLDER
+import { manager } from "./utils/bleManager"; // ← Fix path: from app/ to app/utils/
 
 export let connectedDevice: any = null;
 
 export default function Settings() {
   const [scanning, setScanning] = useState(false);
-
+  
   const connect = () => {
     if (scanning) return;
     setScanning(true);
+
     Alert.alert("Scanning...", "Looking for BioCare_ProstheticESP32");
 
     manager.startDeviceScan(null, null, (error, device) => {
@@ -25,18 +26,19 @@ export default function Settings() {
         device.connect()
           .then((d) => d.discoverAllServicesAndCharacteristics())
           .then((d) => {
-            (global as any).connectedDevice = d;
+            connectedDevice = d;
             setScanning(false);
             Alert.alert("SUCCESS", "Connected to ESP32!");
             console.log("Connected:", d.id);
           })
-          .catch(() => {
+          .catch((err) => {
             setScanning(false);
-            Alert.alert("Failed", "Connection failed");
+            Alert.alert("Failed", err.message || "Connection failed");
           });
       }
     });
 
+    // Timeout
     setTimeout(() => {
       manager.stopDeviceScan();
       setScanning(false);
@@ -46,12 +48,16 @@ export default function Settings() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>SETTINGS</Text>
+
       <TouchableOpacity onPress={connect} style={styles.btn} disabled={scanning}>
         <Text style={styles.btnText}>
           {scanning ? "Scanning..." : connectedDevice ? "CONNECTED" : "Connect ESP32"}
         </Text>
       </TouchableOpacity>
-      {connectedDevice && <Text style={styles.success}>ESP32 CONNECTED!</Text>}
+
+      {connectedDevice && (
+        <Text style={styles.success}>ESP32 CONNECTED!</Text>
+      )}
     </View>
   );
 }

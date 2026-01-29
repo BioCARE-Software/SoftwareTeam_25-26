@@ -42,6 +42,14 @@ This file contains information useful for the app developers working on this pro
 - TOP PAGE HEADER FONT SIZE = 34 AND FONT = BOLD
 - TOP PAGE HEADER COLOR = WHITE
 
+## BLE MANAGEMENT
+
+You need to make the custom app here to run the BLE because react-native-ble-plx module is not supported in ExpoGO
+ - npx expo install expo-dev-client
+ - eas build --profile development --platform ios
+ - install the unique custom app to your phone
+ - BLE Code should work 
+
 ## Additional Notes
 
 Feel free to add anything useful here for the team!
