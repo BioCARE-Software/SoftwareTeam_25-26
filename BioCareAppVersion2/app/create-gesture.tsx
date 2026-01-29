@@ -79,12 +79,6 @@ export default function GestureSet() {
 }
 
 //PLEASE KEEP THE HEADER AND FOOTER STYLES CONSISTENT ACROSS ALL PAGES
-//PADDING FROM THE TOP SHOULD BE 68
-//PADDING HORIZONTAL SHOULD BE 20
-//ARROW SIZE 38
-//ARROW COLOR WHITE
-//HEADER FONT SIZE 34 AND BOLD
-//HEADER COLOR WHITE
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#111", paddingHorizontal: 20, paddingTop: 68 },
