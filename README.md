@@ -28,6 +28,9 @@
 
 2. Run Code:
 
+Please navigate to the folder containing the app subfolder in the file structure
+ex = C:\Users\...\Desktop\BioCare-App\BioCareAppVersion2\app> 
+
 ```npx expo start```
 
 ---------------------------------------------------------------
