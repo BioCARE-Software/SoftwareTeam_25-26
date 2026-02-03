@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@react-native-community/slider": "5.0.1",
+    "build": "^0.1.4",
     "expo": "~54.0.32",
     "expo-linking": "~8.0.11",
     "expo-router": "~6.0.22",

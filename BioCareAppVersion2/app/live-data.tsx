@@ -14,7 +14,6 @@ export default function LiveData() {
       console.log("ESP32 not connected yet");
       return;
     }
-
     const subscription = connectedDevice.monitorCharacteristicForService(
       "b36ffaec-2ef4-4f92-8240-05877b9d71e6",
       SENSOR_CHAR_UUID,

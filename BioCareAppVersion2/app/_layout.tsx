@@ -14,8 +14,6 @@ export default function RootLayout() {
       <Stack.Screen name="live-data" />
       <Stack.Screen name="settings" />
       <Stack.Screen name="create-gesture" />
-      <Stack.Screen name="pointer-grip" />
-      <Stack.Screen name="temporary-gesture-page-1" />
     </Stack>
   );
 }
