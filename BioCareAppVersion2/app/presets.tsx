@@ -2,8 +2,6 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Touchable } from 
 import { Stack, Tabs, Link } from 'expo-router';
 //import { Link } from "react-router-dom";
 
-
-
 export default function Presets() {
   return (
     <View style={styles.container}>

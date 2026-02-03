@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 //CREATE GESTURE PAGE
 
-//UTILITY Gesture Set Screen
+//UTILITY Gesture Set Screenr
 export default function GestureSet() {
   return (
     //add buttons into this container
@@ -17,6 +17,7 @@ export default function GestureSet() {
             <Text style={styles.backArrow}>←</Text>
           </TouchableOpacity>
         </Link>
+        
         //GESTURE PAGE title
         <Text style={styles.title}>Gesture Set</Text>
       </View>

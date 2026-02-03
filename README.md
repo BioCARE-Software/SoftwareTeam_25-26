@@ -29,7 +29,8 @@
 2. Run Code:
 
 Please navigate to the folder containing the app subfolder in the file structure
-ex = C:\Users\...\Desktop\BioCare-App\BioCareAppVersion2\app> 
+ex = C:\Users\...\Desktop\BioCare-App\BioCareAppVersion2
+Make sure that the package.json file is at the same level as where you are running the command 
 
 ```npx expo start```
 
@@ -44,3 +45,4 @@ ex = C:\Users\...\Desktop\BioCare-App\BioCareAppVersion2\app>
 ------------------------------------------------------------
 
 ```npx expo start --clear```
+npm uninstall expo-dev-client
