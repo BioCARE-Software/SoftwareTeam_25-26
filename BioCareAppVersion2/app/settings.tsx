@@ -2,7 +2,7 @@
 import { Link } from "expo-router";
 import { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
-//import { manager } from "./utils/bleManager"; // ← Fix path: from app/ to app/utils/
+//import { manager } from "./utils/bleManager";
 import { BleManager } from "react-native-ble-plx";
 //import { manager } from "./utils/bleManager";
 
