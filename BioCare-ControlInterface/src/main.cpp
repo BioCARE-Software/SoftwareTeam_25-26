@@ -1,7 +1,7 @@
 #include <Arduino.h> 
 #include <BLEDevice.h>
-#include <BLEUtils.h>
 #include <BLEServer.h>
+#include <string>
 
 // BLE Identifiers
 #define SERVICE_UUID "b36ffaec-2ef4-4f92-8240-05877b9d71e6"
