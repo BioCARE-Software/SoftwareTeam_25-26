@@ -19,6 +19,11 @@ Install the following packages from python (also in your env you've created):
 ```pip install PyQt6```
 ```pip install qtawesome```
 ```pip install platformio```
+```pio run --target clean```
+```pip install --upgrade platformio```
+```pio project init --ide vscode```
+```pio platform install espressif32 --force```
+
 
 then create a .venv -- this is a virtual environment
 
