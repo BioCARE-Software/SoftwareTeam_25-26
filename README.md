@@ -19,6 +19,7 @@ The software team looks to seamlessly integrate with both hardware, control syst
       - Moaz Sholook
       - Sahand Maaroof
       - Jorge Rangel de la Tejera
+      - Armaan West
         
   - Machine Learning Research and Implementation:
       - Kevin Abeykoon
