@@ -23,12 +23,13 @@ Install the following packages from python (also in your env you've created):
 ```pip install --upgrade platformio```
 ```pio project init --ide vscode```
 ```pio platform install espressif32 --force```
-
+```pio pkg install```
 
 then create a .venv -- this is a virtual environment
 
 
 #Step 4:
+
 
 Install the extension: 
 ```Platformio```
