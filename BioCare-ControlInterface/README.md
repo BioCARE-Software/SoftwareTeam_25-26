@@ -13,11 +13,15 @@ Go on the ```BioCare_Appv2_python``` branch
 
 #Step 3:
 
-Install the following packages from python:
+Install the following packages from python (also in your env you've created):
 
 ```pip install py```
 ```pip install PyQt6```
 ```pip install qtawesome```
+```pip install platformio```
+
+then create a .venv -- this is a virtual environment
+
 
 #Step 4:
 
@@ -29,3 +33,11 @@ Install the extension:
 #Step 5:
 
 Open this project in the Platformio extension
+![alt text](image.png)
+
+#Step 6: 
+
+To run code use this: ```pio run```
+or
+Press ```Ctrl + Shift + P``` to open a list of commands
+Search for ```PlatformIO: Build``` to build the project -- a tempCodeRunnerFile should appear when you are building the project
