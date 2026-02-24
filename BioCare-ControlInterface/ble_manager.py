@@ -8,7 +8,6 @@ CHAR_UUID = "36e89808-bb82-471d-9791-a2dc10994675"
 async def main():
     print("Scanning for device...")
     devices = await BleakScanner.discover() # Search for BLE Devices
-
     esp32 = None
 
     # Search for Target Device name in discoverable devices

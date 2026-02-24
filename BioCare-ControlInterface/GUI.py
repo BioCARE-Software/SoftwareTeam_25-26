@@ -3,9 +3,19 @@ import qtawesome as qta
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QLabel, QStackedWidget, QListWidget, QFrame
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
+import asyncio
+from ble_client import BioCareBLEClient
 
+import nest_asyncio
+nest_asyncio.apply()
 
+import asyncio
+import sys
 
+if sys.platform == "win32":
+    # Use Selector loop (compatible with GUI threads)
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+# ── END FIX ──
 
 # Defining CI App Style -> Goal: Notion -esque with BioCare Colors lol
 APP_STYLE = """
@@ -66,7 +76,9 @@ class CI_Window(QMainWindow):
         super().__init__()
         self.setWindowTitle("BioCare Prosthetic Control Interface v1")
         self.setMinimumSize(1200, 700)
-
+        
+        self.ble = BioCareBLEClient()
+        
         # Main Containers
         container = QWidget()
         main_layout = QHBoxLayout(container)
@@ -76,6 +88,7 @@ class CI_Window(QMainWindow):
         sidebar_frame.setObjectName("sidebar")
         sidebar_layout = QVBoxLayout(sidebar_frame)
 
+        # Nav buttons
         self.btn_data     = QPushButton("  Live Sensor Display", icon=qta.icon("mdi.chart-line"))
         self.btn_presets  = QPushButton("  Preset Manager", icon=qta.icon("mdi.bookmark"))
         self.btn_ble      = QPushButton("  BLE Manager", icon=qta.icon("mdi.bluetooth"))
@@ -86,9 +99,17 @@ class CI_Window(QMainWindow):
             sidebar_layout.addWidget(btn)
 
         sidebar_layout.addStretch()
+        
+        # BLE Status & Connect Button
+        self.ble_status = QLabel("BLE: Disconnected")
+        self.ble_status.setStyleSheet("color: #ff5555; font-weight: bold;")
+        sidebar_layout.addWidget(self.ble_status)
+
+        self.btn_ble_connect = QPushButton("Connect BLE")
+        self.btn_ble_connect.clicked.connect(self.on_ble_connect)
+        sidebar_layout.addWidget(self.btn_ble_connect)
 
         # Adding BioCare Logo <3
-
         logo_label = QLabel()
         logo_pixmap = QPixmap("assets/BioCare_logo.png").scaled(120, 120, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         logo_label.setPixmap(logo_pixmap)
@@ -96,24 +117,20 @@ class CI_Window(QMainWindow):
             background: transparent;
             border: none;
         """)
-
         logo_label.setAlignment(Qt.AlignLeft | Qt.AlignBottom)
 
         sidebar_layout.addWidget(logo_label)
-
+        
+        
         # =========== Build Pages ===============
         self.pages = QStackedWidget()
         
-
         self.data_page = self.build_data_page()
         self.presets_page = self.build_presets_page()
-
-
 
         # Adding Built Pages as Widget
         self.pages.addWidget(self.data_page)
         self.pages.addWidget(self.presets_page)
-
 
         main_layout.addWidget(sidebar_frame, 1)
         main_layout.addWidget(self.pages, 4)
@@ -124,9 +141,38 @@ class CI_Window(QMainWindow):
         # Connecting Buttons
         self.btn_data.clicked.connect(lambda: self.pages.setCurrentIndex(0)) # Data page as Default
         self.btn_presets.clicked.connect(lambda: self.pages.setCurrentIndex(1)) # Data page as Default
+        
+    def on_ble_connect(self):
+        if self.ble.is_connected:
+            asyncio.run(self.ble.disconnect())
+            self.ble_status.setText("BLE: Disconnected")
+            self.ble_status.setStyleSheet("color: #ff5555;")
+            self.btn_ble_connect.setText("Connect BLE")
+        else:
+            # Run async connect in the current thread safely
+            loop = asyncio.get_event_loop()
+            future = asyncio.run_coroutine_threadsafe(self.async_connect_ble(), loop)
+            future.add_done_callback(self.on_connect_done)
+
+    def on_connect_done(self, future):
+        try:
+            success = future.result()
+            if success:
+                self.ble_status.setText("BLE: Connected")
+                self.ble_status.setStyleSheet("color: lime;")
+                self.btn_ble_connect.setText("Disconnect BLE")
+            else:
+                self.ble_status.setText("BLE: Failed")
+        except Exception as e:
+            self.ble_status.setText("BLE: Error")
+            print("Connect error:", e)
+            
+    async def async_connect_ble(self):
+        success = await self.ble.connect()
+        return success
+                
 
     # ============ Live Sensor Page (Default) ===============
-
     def build_data_page(self):
         page = QWidget()
         layout = QVBoxLayout(page)
@@ -198,7 +244,6 @@ class CI_Window(QMainWindow):
         main_layout.setSpacing(25)
 
         # Center Panel : List of Presets
-
         left_panel = QFrame()
         left_panel.setObjectName("card")
         left_panel.setStyleSheet("""
@@ -260,9 +305,19 @@ class CI_Window(QMainWindow):
 
         main_layout.addWidget(left_panel, 1)
         main_layout.addWidget(right_panel, 2)
-
+        
         return page
-
+    
+    def closeEvent(self, event):
+        asyncio.run(self.ble.cleanup())
+        super().closeEvent(event)
+        
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    app.setStyleSheet(APP_STYLE)
+    window = CI_Window()
+    window.show()
+    sys.exit(app.exec())
 
 
 

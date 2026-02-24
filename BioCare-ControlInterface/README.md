@@ -24,6 +24,10 @@ Install the following packages from python (also in your env you've created):
 ```pio project init --ide vscode```
 ```pio platform install espressif32 --force```
 ```pio pkg install```
+```pip install pyqt6 bleak pyinstaller```
+```pip install bleak```
+```pip install nest_asyncio```
+```pip install nest_asyncio bleak pyqt6 qtawesome```
 
 then create a .venv -- this is a virtual environment
 
@@ -47,3 +51,11 @@ To run code use this: ```pio run```
 or
 Press ```Ctrl + Shift + P``` to open a list of commands
 Search for ```PlatformIO: Build``` to build the project -- a tempCodeRunnerFile should appear when you are building the project
+
+or to run the GUI only
+```python GUI.py```
+
+
+## Other Helpful commands 
+
+```pio device monitor``` -- helps with checking what PORT your ESP32 is connected to via a cord
