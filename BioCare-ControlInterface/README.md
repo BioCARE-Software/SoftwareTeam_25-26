@@ -56,6 +56,33 @@ or to run the GUI only
 ```python GUI.py```
 
 
+### Are you having trouble with your BLE connecting to your computer?
+#Step 1:
+Connect the ESP32 to your computer via a wire 
+
+#Step 2: 
+Press ```windows + X``` then go to ```device manager```
+
+#Step 3:
+Scroll down to ```Ports```
+There should be a PORT/COM connected to your computer, note that number ```USB-SERIAL-CH340```
+
+#Step 4:
+Go to VS Code and open the extention ```Platformio``` and go to ```devices```
+
+~~~If nothing is showing up for you, unplug for 30 seconds and try again~~~
+
+#Step 5:
+Select correct COM
+
+#Step 6:
+At the bottom of your screen, there should be a very small plug icon (2 prongs). Click it and select your COM port.
+
+#Step 7:
+Go to ```SERIAL MONITOR``` and selec Baud rate = 115200
+
+
+
 ## Other Helpful commands 
 
 ```pio device monitor``` -- helps with checking what PORT your ESP32 is connected to via a cord

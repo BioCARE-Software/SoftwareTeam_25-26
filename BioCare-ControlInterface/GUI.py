@@ -1,6 +1,6 @@
 import sys
 import qtawesome as qta
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QLabel, QStackedWidget, QListWidget, QFrame
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QLabel, QStackedWidget, QListWidget, QFrame, QMessageBox
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
 import asyncio
@@ -14,7 +14,7 @@ import sys
 
 if sys.platform == "win32":
     # Use Selector loop (compatible with GUI threads)
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 # ── END FIX ──
 
 # Defining CI App Style -> Goal: Notion -esque with BioCare Colors lol
@@ -121,6 +121,11 @@ class CI_Window(QMainWindow):
 
         sidebar_layout.addWidget(logo_label)
         
+        # ======Testing======
+        self.btn_test_send = QPushButton("Test Send 90°")
+        self.btn_test_send.clicked.connect(self.send_test)
+        sidebar_layout.addWidget(self.btn_test_send)
+        
         
         # =========== Build Pages ===============
         self.pages = QStackedWidget()
@@ -153,6 +158,13 @@ class CI_Window(QMainWindow):
             loop = asyncio.get_event_loop()
             future = asyncio.run_coroutine_threadsafe(self.async_connect_ble(), loop)
             future.add_done_callback(self.on_connect_done)
+    
+    def send_test(self):
+        if not self.ble.is_connected:
+            QMessageBox.warning(self, "Error", "Connect BLE first!")
+            return
+        asyncio.create_task(self.ble.send_servo_position(90))
+        print("Sent test position 90")
 
     def on_connect_done(self, future):
         try:
@@ -169,7 +181,14 @@ class CI_Window(QMainWindow):
             
     async def async_connect_ble(self):
         success = await self.ble.connect()
+        if success:
+            # Start receiving sensor data
+            await self.ble.start_notifications(self.update_sensor_display)
         return success
+
+    def update_sensor_display(self, value):
+        self.sensor_display.setText(f"Latest sensor value: {value}")
+        print(f"GUI updated with sensor: {value}")
                 
 
     # ============ Live Sensor Page (Default) ===============
