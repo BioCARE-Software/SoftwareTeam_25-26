@@ -5,6 +5,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
 import asyncio
 from ble_client import BioCareBLEClient
+import threading
 
 import nest_asyncio
 nest_asyncio.apply()
@@ -16,6 +17,13 @@ if sys.platform == "win32":
     # Use Selector loop (compatible with GUI threads)
     asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 # ── END FIX ──
+loop = asyncio.new_event_loop()
+def run_loop():
+    asyncio.set_event_loop(loop)
+    loop.run_forever()
+
+threading.Thread(target=run_loop, daemon=True).start()
+# ── End background loop ──
 
 # Defining CI App Style -> Goal: Notion -esque with BioCare Colors lol
 APP_STYLE = """
@@ -148,17 +156,17 @@ class CI_Window(QMainWindow):
         self.btn_presets.clicked.connect(lambda: self.pages.setCurrentIndex(1)) # Data page as Default
         
     def on_ble_connect(self):
-        print(">>> Connect BLE button clicked!")  # Debug: confirm button works
+        print(">>> Connect BLE button clicked!")
+
         if self.ble.is_connected:
             print(">>> Disconnecting...")
-            asyncio.create_task(self.ble.disconnect())
+            asyncio.run_coroutine_threadsafe(self.ble.disconnect(), loop)
             self.ble_status.setText("BLE: Disconnected")
             self.ble_status.setStyleSheet("color: #ff5555;")
             self.btn_ble_connect.setText("Connect BLE")
         else:
             print(">>> Starting BLE connection...")
-            # Run async connect as a background task (safe for GUI)
-            asyncio.create_task(self.async_connect_ble())
+            asyncio.run_coroutine_threadsafe(self.async_connect_ble(), loop)
     
     def send_test(self):
         if not self.ble.is_connected:
@@ -189,7 +197,7 @@ class CI_Window(QMainWindow):
                 self.ble_status.setText("BLE: Connected")
                 self.ble_status.setStyleSheet("color: lime;")
                 self.btn_ble_connect.setText("Disconnect BLE")
-                # Optional: start receiving sensor data
+                # Optional: start notifications
                 # await self.ble.start_notifications(self.update_sensor_display)
             else:
                 self.ble_status.setText("BLE: Failed")
