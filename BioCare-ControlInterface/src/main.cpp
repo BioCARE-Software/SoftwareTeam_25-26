@@ -1,4 +1,4 @@
-#include <Arduino.h> 
+#include <Arduino.h>
 #include <BLEDevice.h>
 #include <BLEServer.h>
 #include <string>
@@ -59,4 +59,10 @@ void setup() {
 }
 
 void loop() {
+  static unsigned long lastPrint = 0;
+  if (millis() - lastPrint > 2000) {
+    lastPrint = millis();
+    Serial.println("Still running... Advertising...");
+  }
+  delay(10);
 }

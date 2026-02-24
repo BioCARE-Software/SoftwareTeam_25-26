@@ -148,16 +148,17 @@ class CI_Window(QMainWindow):
         self.btn_presets.clicked.connect(lambda: self.pages.setCurrentIndex(1)) # Data page as Default
         
     def on_ble_connect(self):
+        print(">>> Connect BLE button clicked!")  # Debug: confirm button works
         if self.ble.is_connected:
-            asyncio.run(self.ble.disconnect())
+            print(">>> Disconnecting...")
+            asyncio.create_task(self.ble.disconnect())
             self.ble_status.setText("BLE: Disconnected")
             self.ble_status.setStyleSheet("color: #ff5555;")
             self.btn_ble_connect.setText("Connect BLE")
         else:
-            # Run async connect in the current thread safely
-            loop = asyncio.get_event_loop()
-            future = asyncio.run_coroutine_threadsafe(self.async_connect_ble(), loop)
-            future.add_done_callback(self.on_connect_done)
+            print(">>> Starting BLE connection...")
+            # Run async connect as a background task (safe for GUI)
+            asyncio.create_task(self.async_connect_ble())
     
     def send_test(self):
         if not self.ble.is_connected:
@@ -180,11 +181,22 @@ class CI_Window(QMainWindow):
             print("Connect error:", e)
             
     async def async_connect_ble(self):
-        success = await self.ble.connect()
-        if success:
-            # Start receiving sensor data
-            await self.ble.start_notifications(self.update_sensor_display)
-        return success
+        print(">>> async_connect_ble started")
+        try:
+            success = await self.ble.connect()
+            print(">>> connect() returned:", success)
+            if success:
+                self.ble_status.setText("BLE: Connected")
+                self.ble_status.setStyleSheet("color: lime;")
+                self.btn_ble_connect.setText("Disconnect BLE")
+                # Optional: start receiving sensor data
+                # await self.ble.start_notifications(self.update_sensor_display)
+            else:
+                self.ble_status.setText("BLE: Failed")
+        except Exception as e:
+            print(">>> BLE connection exception:", str(e))
+            self.ble_status.setText("BLE: Error")
+            QMessageBox.critical(self, "Connection Error", str(e))
 
     def update_sensor_display(self, value):
         self.sensor_display.setText(f"Latest sensor value: {value}")
