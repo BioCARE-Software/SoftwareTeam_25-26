@@ -172,8 +172,11 @@ class CI_Window(QMainWindow):
         if not self.ble.is_connected:
             QMessageBox.warning(self, "Error", "Connect BLE first!")
             return
-        asyncio.create_task(self.ble.send_servo_position(90))
-        print("Sent test position 90")
+        print(">>> Test send 90° clicked")
+        
+        # Schedule on the BACKGROUND loop (the one we started with threading)
+        asyncio.run_coroutine_threadsafe(self.ble.send_servo_position(90), loop)
+        print("Test send task scheduled on background loop")
 
     def on_connect_done(self, future):
         try:
