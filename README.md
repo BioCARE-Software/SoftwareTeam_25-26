@@ -1,48 +1,62 @@
-# Welcome to BioCare's Software Team's Github Repo 🦾
+# BioCARE Software Team 2025-2026
 
-## Overview 📌
-This repository contains both the firmware and software stack for Carleton University's Biomedical Applied Research and Engineering team. Our goal is to design and build a robust, effective, and user - friendly prosthetic arm to compete in the 2028 Cybathalon, based in Switzerland 🇨🇭.
-The software team looks to seamlessly integrate with both hardware, control systems, as well as a mobile application to elevate user experience, and allow our team to better run diagnostics on our prosthetic.
+Firmware, app, hardware references, tools, and documentation for BioCARE's prosthetic arm project.
 
-## Meet the Team 👨‍💻👩‍💻
-  - Software Team Lead: Jacob Reyes
-  - Software Development:
-      - Charis Nobossi
-      - Pardis Ehsani
-      - Cherie Mbaye
-      - Hassan 
-      - Afi Hassan
-      - Thana Hassan
-        
-  - Firmware Development:
-      - Jacob Reyes
-      - Moaz Sholook
-      - Sahand Maaroof
-      - Jorge Rangel de la Tejera
-      - Armaan West
-      - Gab Grant
-      - Lasya Erukulla
-        
-  - Machine Learning Research and Implementation:
-      - Kevin Abeykoon
-      - Efe Atacan
+The goal of this repository is to keep active work easy to find:
 
-## As a team, we are responsible for:
-  - Processing sensor inputs (EMG signals, force sensors, etc)
-  - Implementating gesture recognition and control algorithms from signals
-  - Managing communication layers between:
-          - Device <-> App. (Bluetooth - BLE)
-          - ESP32 <-> Arduino Nano (UART)
-  - Designing and launching a suitable mobile application for further user customization, calibration, and feedback between the device (React Native)
+- `firmware/` contains embedded code for prototypes, signal processing, and sensor work.
+- `app/` contains the mobile application.
+- `hardware/` contains electronics and mechanical design files.
+- `docs/` contains onboarding, setup, and architecture documentation.
+- `protocols/` documents communication contracts such as BLE and UART.
+- `tools/` contains reusable scripts for data collection, calibration, flashing, and plotting.
+- `experiments/` contains prototypes and trial work that should not be treated as production code.
+- `archive/` is for intentionally retained old snapshots.
 
-## Getting started! Here is a list of resources to help you get started with our team!
-### Firmware:
- 1. Arduino IDE: [Arduino IDE Page - Install Latest Arduino IDE (Not Legacy)](https://www.arduino.cc/en/software/)
- 2. ESP32 Add-On for Arduino IDE: [Instructions for ESP32 Add-On](https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/)
- 3. PlatformIO IDE on VS Code: [How to Install and Run PlatformIO on VS Code](https://platformio.org/install/ide?install=vscode)
-### Software:
- 1. React Native Tutorial: [Getting Started with React Native](https://www.youtube.com/watch?v=J2j1yk-34OY)
+## Current Layout
 
-### Machine Learning:
- 1. Hands - On Machine Learning with Sci-kit, Keras, & TensorFlow: https://drive.google.com/drive/folders/1ue1M6OXICcxW9pum1I0YAAZVmVthPhZB 
+```text
+.
+  app/
+    mobile/
+  docs/
+    architecture/
+    onboarding/
+    setup/
+    decisions/
+  firmware/
+    proto1/
+    proto2/
+    force-sensors/
+    lowpass-filter/
+  hardware/
+    electronics/
+    mechanical/
+  protocols/
+  tools/
+  experiments/
+  archive/
+```
 
+## Getting Started
+
+Start with the subsystem you are working on:
+
+- Firmware: see `firmware/README.md`
+- Mobile app: see `app/mobile/README.md`
+- Hardware files: see `hardware/README.md`
+- General onboarding: see `docs/onboarding/`
+
+## Repository Rules
+
+- Do not commit dependency folders such as `node_modules/`.
+- Do not commit generated local state such as `.expo/`, `.DS_Store`, KiCad lock files, or KiCad backup archives.
+- Keep active source files out of `experiments/` once they become part of the real system.
+- Add a short README when creating a new major folder.
+
+## Known Follow-Ups
+
+- Restore a correct `app/mobile/package.json` and lockfile for the Expo app.
+- Add missing app assets referenced by `app/mobile/app.json`, or update the config.
+- Document BLE and UART message formats under `protocols/`.
+- Replace placeholder experiment files with short notes explaining whether to keep or delete them.

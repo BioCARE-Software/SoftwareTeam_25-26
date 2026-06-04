@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# Expo / React Native local state
+.expo/
+.expo-shared/
+web-build/
+
+# Build outputs
+build/
+dist/
+out/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.code-workspace
+
+# KiCad generated/local files
+*-backups/
+*.kicad_prl
+*.lck
+fp-info-cache
+\#auto_saved_files#
+
+# Archives and local exports
+*.zip
+*.tar
+*.tar.gz
