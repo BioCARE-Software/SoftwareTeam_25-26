@@ -28,7 +28,6 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      
       "expo-router",
       [
         "expo-splash-screen",
@@ -43,10 +42,15 @@
         "react-native-ble-plx",
         {
           "isBackgroundEnabled": true,
-          "modes": ["peripheral", "central"],
+          "modes": [
+            "peripheral",
+            "central"
+          ],
           "bluetoothAlwaysPermission": "Allow $(PRODUCT_NAME) to connect to bluetooth devices"
         }
-      ]
+      ],
+      "expo-font",
+      "expo-asset"
     ],
     "experiments": {
       "typedRoutes": true
