@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
+import { useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
 import {
+  Alert,
+  Platform,
   View,
   Text,
   TouchableOpacity,
   ScrollView,
   StyleSheet,
-  Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function PresetsScreen() {
+  const router = useRouter();
   const [presets, setPresets] = useState<string[]>([]);
 
   // Load presets on startup
@@ -41,6 +44,16 @@ export default function PresetsScreen() {
   };
 
   const handleNewPreset = () => {
+    if (Platform.OS === "web") {
+      const text = window.prompt("Enter a name for your new preset:");
+      if (text?.trim()) {
+        const newPresets = [...presets, text.trim()];
+        setPresets(newPresets);
+        savePresets(newPresets);
+      }
+      return;
+    }
+
     Alert.prompt(
       "New Preset",
       "Enter a name for your new preset:",
@@ -64,7 +77,7 @@ export default function PresetsScreen() {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={28} color="white" />
         </TouchableOpacity>
         <Text style={styles.title}>PRESETS</Text>

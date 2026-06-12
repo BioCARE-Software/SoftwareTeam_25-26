@@ -3,18 +3,13 @@ import React from 'react';
 
 import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-{/* Note that the routing may not work as it hasn't been tested with the other screens
-  the placeholder screen is also not real so there may be navigation bugs*/}
 export function HomeScreen() {
-
   const router = useRouter();
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Logo */}
       <Image source={require('./logo.png')} style={styles.logo} />
-      {/* Buttons */}
-      <TouchableOpacity style={styles.redButton} onPress={() => router.push('../presets')}>
+      <TouchableOpacity style={styles.redButton} onPress={() => router.push('/presets')}>
         <Text style={styles.buttonText}>PRESETS</Text>
       </TouchableOpacity>
 
@@ -22,20 +17,32 @@ export function HomeScreen() {
         <Text style={styles.buttonText}>MANUAL</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.redButton} onPress={() => router.push('../placeholderscreen')}>
+      <TouchableOpacity
+        style={styles.redButton}
+        onPress={() =>
+          router.push({ pathname: '/placeholderscreen', params: { feature: 'Create Gesture' } })
+        }>
         <Text style={styles.buttonText}>CREATE GESTURE</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.redButton} onPress={() => router.push('../placeholderscreen')}>
+      <TouchableOpacity
+        style={styles.redButton}
+        onPress={() =>
+          router.push({ pathname: '/placeholderscreen', params: { feature: 'Live Data' } })
+        }>
         <Text style={styles.buttonText}>LIVE DATA</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.blackButton} onPress={() =>router.push('../placeholderscreen')}>
+      <TouchableOpacity
+        style={styles.blackButton}
+        onPress={() =>
+          router.push({ pathname: '/placeholderscreen', params: { feature: 'Settings' } })
+        }>
         <Text style={styles.buttonText}>SETTINGS</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
-};
+}
 
 export default HomeScreen;
 
