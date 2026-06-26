@@ -1,0 +1,9 @@
+Brief introduction to state diagrams for newcomers:
+
+- A UML State Machine Diagram is a _behavioural model_. Unlike some other types of UML diagrams, it does _not_ describe the architecture or internal objective structure of the system. Instead, it describes how the system responds to certain stimuli by modelling its behaviour as a state machine.
+
+- This team has chosen to use red arrows to represent state transitions. State transitions are conceptually instantaneous: i.e. there is zero time between two states. Consequently, the State Machine is always in some state, and never really *between* two states.
+
+	+ **Note:** In real life, state transitions may take some time—albeit very little time—to perform. The State Machine model is idealistic, and this short time is considered negligible. If you notice that a certain transition should by design take a noticeable amount of time, perhaps you should really model this so-call "transition" into a _state_ instead. For example: when MS Windows takes an hour to update, that is _not_ a transition; it is a _state_. On the contrary, if you press a key on your keyboard to shut down Windows, "shutting down" and "powered off" should be states, but "key pressed" should probably not, as it takes a negligible amount of time for the keyboard driver and signal handler to perform their job and move on to the next state.
+
+- A state is something that the machine is aware of, and this team has chosen to represent states using yellow boxes. A state takes _some_ time, that is, the State Machine must remain in any given state for a length of time *above* zero. For example, a cola dispenser remains in the "idle" state for as long as no one uses it, and may instantaneously switch into the "active" state when someone interacts with it. You could then vulgarly model the 
