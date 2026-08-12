@@ -76,13 +76,14 @@ Plotter columns: `env`, `thresh`, `pendingBursts`, `stateId`
 ## Project layout
 
 ```
-platformio.ini
-include/config.h
-include/ads_emg.h
-include/burst_detector.h
-include/state_machine.h
-src/main.cpp
-README.md
+firmware/proto2/myowareads1115/
+  platformio.ini
+  include/config.h
+  include/ads_emg.h
+  include/burst_detector.h
+  include/state_machine.h
+  src/main.cpp
+  README.md
 ```
 
 ## Notes
